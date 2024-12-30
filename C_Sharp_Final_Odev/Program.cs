@@ -1,9 +1,5 @@
 ﻿using C_Sharp_Final_Odev_library;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace C_Sharp_Final_Odev
 {
@@ -19,47 +15,49 @@ namespace C_Sharp_Final_Odev
             ICsvHandler csvHandler = new CsvHandler();
             Library library = new Library(filePath, factory, csvHandler);
 
+            Console.WriteLine("\nType 'help' to see the available commands.");
+
             while (true)
             {
-                Console.WriteLine("\nMenu:");
-                Console.WriteLine("1. Add Item");
-                Console.WriteLine("2. List Items");
-                Console.WriteLine("3. Modify Item");
-                Console.WriteLine("4. Delete Item");
-                Console.WriteLine("5. Check Out Item");
-                Console.WriteLine("6. Return Item");
-                Console.WriteLine("7. Exit");
+                Console.Write("\n> ");
+                string input = Console.ReadLine()?.Trim();
 
-                Console.Write("Select an option (1-7): ");
-                string choice = Console.ReadLine();
+                if (string.IsNullOrEmpty(input))
+                {
+                    Console.WriteLine("Invalid command. Type 'help' for a list of commands.");
+                    continue;
+                }
 
                 try
                 {
-                    switch (choice)
+                    switch (input.ToLower())
                     {
-                        case "1":
+                        case "help":
+                            ShowHelp();
+                            break;
+                        case "add":
                             AddItem(library);
                             break;
-                        case "2":
+                        case "list":
                             ListItems(library);
                             break;
-                        case "3":
+                        case "modify":
                             ModifyItem(library);
                             break;
-                        case "4":
+                        case "delete":
                             DeleteItem(library);
                             break;
-                        case "5":
+                        case "checkout":
                             CheckOutItem(library);
                             break;
-                        case "6":
+                        case "return":
                             ReturnItem(library);
                             break;
-                        case "7":
+                        case "exit":
                             Console.WriteLine("Exiting... Goodbye!");
                             return;
                         default:
-                            Console.WriteLine("Invalid option. Please try again.");
+                            Console.WriteLine("Unknown command. Type 'help' for a list of commands.");
                             break;
                     }
                 }
@@ -68,6 +66,19 @@ namespace C_Sharp_Final_Odev
                     Console.WriteLine($"Error: {ex.Message}");
                 }
             }
+        }
+
+        static void ShowHelp()
+        {
+            Console.WriteLine("\nAvailable Commands:");
+            Console.WriteLine("  help      - Show this help menu");
+            Console.WriteLine("  add       - Add a new item to the library");
+            Console.WriteLine("  list      - List all items in the library");
+            Console.WriteLine("  modify    - Modify an existing library item");
+            Console.WriteLine("  delete    - Delete an item from the library");
+            Console.WriteLine("  checkout  - Check out an item");
+            Console.WriteLine("  return    - Return a checked-out item");
+            Console.WriteLine("  exit      - Exit the program");
         }
 
         static void AddItem(Library library)
