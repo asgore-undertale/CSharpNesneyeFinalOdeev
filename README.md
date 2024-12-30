@@ -1,71 +1,101 @@
-# Kütüphane Yönetim Sistemi
+## C# Final Ödev Kütüphanesi - README.md
 
-Bu proje, temel kütüphane işlemlerini gerçekleştiren bir konsol uygulamasıdır. Nesne Yönelimli Programlama (OOP) prensiplerini ve Bağımlılığı Ters Çevirme İlkesi (DIP) prensibini uygulamaktadır.
+Bu README dosyası, C# Final Ödev Kütüphanesinin içeriğini ve kullanımını Türkçe olarak açıklamaktadır. CLI komutları İngilizce olarak korunmuştur.
+Kütüphane Hakkında
 
-## Özellikler
+### Kütüphane Hakkında
 
-1.  **Eleman Ekleme (Add Item):**
-    *   Kullanıcı, kitap (Book) veya DVD ekleyebilir.
-    *   Kullanıcıdan başlık, yazar ve özel bilgileri (sayfa sayısı ya da süre) girerek kütüphaneye yeni bir öğe eklenir.
+Bu kütüphane, kitaplık yönetimi uygulamaları için temel sınıflar ve işlevler sağlar. Kullanıcılar kitap, DVD ve diğer öğeleri ekleyebilir, silebilir, listeleyebilir, düzenleyebilir ve ödünç verebilir. Kütüphane ayrıca öğeleri bir CSV dosyasında saklayarak verilerin kalıcılığını sağlar.
+OOP Prensipleri ve DIP Kullanımı
 
-2.  **Öğeleri Listeleme (List Items):**
-    *   Kütüphanede bulunan tüm öğeler, detaylı bilgilerle birlikte görüntülenir.
+### OOP İlkeleri ve DIP Kullanımı
 
-3.  **Öğe Düzenleme (Modify Item):**
-    *   Mevcut bir öğenin bilgileri, öğe kimliği (ID) kullanılarak güncellenir.
+Kütüphane, Nesne Yönelimli Programlama (OOP) prensiplerini ve Dependency Inversion Principle (DIP) prensibini şu şekilde kullanır:
 
-4.  **Öğe Silme (Delete Item):**
-    *   Bir öğe, kimlik numarasıyla (ID) kütüphaneden silinir.
+*   **Encapsulation (Kapasulaştırma):** `LibraryItem`, `Author`, `Book`, `DVD` gibi sınıflar, verilerini private alanlarda tutar ve bunlara public getter ve setter yöntemleriyle erişim sağlar. Bu, verilerin doğruluğunu ve tutarlılığını korur. Örneğin, Author sınıfında FirstName ve LastName özellikleri, regex ile kontrol edilerek sadece harf içermesi sağlanır.
 
-5.  **Öğeyi Ödünç Alma (Check Out Item):**
-    *   Kullanıcı bir öğeyi ödünç alabilir ve bu işlem öğenin kontrol durumu (Checked Out) olarak işaretlenir.
+*   **Inheritance (Kalıtım):** `LibraryItem` sınıfı, `Book` ve `DVD` sınıfları için ortak özellikleri tanımlar. Bu, kod tekrarını azaltır ve hiyerarşik ilişkileri yansıtır. `Book` ve `DVD`, LibraryItem'dan türer ve kendi özelleştirilmiş özelliklerine sahiptir.
 
-6.  **Öğeyi İade Etme (Return Item):**
-    *   Ödünç alınmış bir öğe, kullanıcı tarafından geri iade edilebilir ve öğenin kontrol durumu güncellenir.
+*   **Polymorphism (Çok Biçimlilik):** `LibraryItem` sınıfının `DisplayDetails` ve `ToCsv` yöntemleri, türetilmiş sınıflar tarafından farklı şekilde gerçekleştirilir. Bu, her öğe türünün kendi detaylarını ve CSV formatını özelleştirmesini sağlar.
 
-7.  **Çıkış (Exit):**
-    *   Programdan çıkış yapılır.
+*   **Abstraction (Soyutlama):** `ILibraryItemFactory` arayüzü, öğe oluşturma mantığını somut `LibraryItemFactory` sınıfından ayırır. Bu, kodun daha esnek ve bakımı daha kolay olmasını sağlar. Farklı öğe türleri için fabrika sınıfı kullanılarak, yeni öğe türleri eklemek kolaylaşır.
 
-## Nesne Yönelimli Programlama (OOP) İlkeleri
+*   **Dependency Inversion Principle (DIP):** `Library` sınıfı, `ICsvHandler` ve `ILibraryItemFactory` arayüzlerine bağımlıdır, somut sınıflara değil. Bu, `Library` sınıfının farklı CSV işleyicileri veya fabrika uygulamaları ile çalışabilmesini sağlar. Bu prensip, test edilebilirliği artırır ve bağımlılıkları azaltır.
 
-1.  **Kalıtım (Inheritance):**
-    *   `LibraryItem` sınıfı, `Book` ve `DVD` gibi türetilmiş sınıflar için temel bir sınıf olarak kullanılmıştır.
-    *   Ortak özellikler (`Title`, `Author`, `ItemType`, `IsCheckedOut`) ve davranışlar (`CheckOut`, `Return`, `ToCsv`) `LibraryItem` sınıfında tanımlanmıştır.
-    *   Bu sayede kod tekrarından kaçınılmış ve öğe türlerine göre esneklik sağlanmıştır.
+### Komut Satırı Arayüzü (CLI) Kullanım Örnekleri
 
-2.  **Kapsülleme (Encapsulation):**
-    *   `Library` sınıfı, kütüphane öğelerinin eklenmesi, silinmesi ve yönetilmesi gibi işlemleri kapsar.
-    *   Dosyadan veri yükleme ve kaydetme işlemleri, `LoadFromCsv` ve `SaveToCsv` yöntemleri aracılığıyla dışarıdan gizlenmiştir.
-    *   Ayrıca, öğelerin kontrol durumu (`IsCheckedOut`) gibi durumlar doğrudan değil, sadece sınıfın metotları aracılığıyla değiştirilebilir.
+Kütüphane, komut satırı arayüzü (CLI) aracılığıyla kullanıcılarla etkileşim kurar. Aşağıda bazı kullanım örnekleri verilmiştir:
 
-3.  **Çok Biçimlilik (Polymorphism):**
-    *   `DisplayDetails` ve `ToCsv` yöntemleri, her türetilmiş sınıf (`Book` ve `DVD`) için farklı biçimlerde uygulanmıştır.
-    *   Program, türetilmiş sınıfları `LibraryItem` tipi üzerinden işleterek çok biçimliliği kullanır.
-    *   Örneğin, `LibraryItem` türündeki bir öğenin `DisplayDetails` çağrısı, öğenin gerçek türüne göre farklı bir sonuç döndürür.
+*   **Yeni kitap ekleme:**
+```
+> add
+Enter title: Bana C# Öğret
+Enter number of authors: 1
+Enter author 1's first name: Ali
+Enter author 1's last name: Yılmaz
+Enter item type (Book/DVD): Book
+Enter page count: 300
+Book added successfully.
+```
 
-4.  **Soyutlama (Abstraction):**
-    *   `LibraryItem` sınıfı soyut bir sınıf olarak tanımlanmıştır ve somut türetilmiş sınıflar (`Book`, `DVD`) bu soyut sınıfı genişletir.
-    *   Bu, öğelerin türlerine bakılmaksızın tek bir arayüz (`LibraryItem`) üzerinden işlem yapılmasını sağlar.
-    *   Kullanıcılar, bir öğenin kitap mı yoksa DVD mi olduğunu bilmeden, sadece `LibraryItem` arayüzü ile işlem yapabilir.
+*   **Tüm öğeleri listeleme:**
+```
+> list
+Library Items:
 
-## Bağımlılığı Ters Çevirme İlkesi (Dependency Inversion Principle - DIP)
+[Book] ID: e7e41e78-f3b9-4c69-a42d-ecfaa9ab2412
+Title: Bana C# Öğret
+Authors: Ali Yılmaz
+Pages: 300
+Checked Out: False
+```
 
-Bağımlılığı Ters Çevirme İlkesi, yüksek seviyeli modüllerin (örneğin, `Library` sınıfı) düşük seviyeli modüllere (örneğin, `Book`, `DVD`) doğrudan bağımlı olmamasını sağlar. Bunun yerine, her iki taraf da bir soyutlamaya bağlı olmalıdır.
+*   **DVD ekleme:**
+```
+> add
+Enter title: Interstellar
+Enter number of authors: 1
+Enter author 1's first name: Christopher
+Enter author 1's last name: Nolan
+Enter item type (Book/DVD): DVD
+Enter duration (in minutes): 169
+DVD added successfully.
+```
 
-**Uygulama:**
+*   **Öğeyi düzenleme (modify):**
+```
+> modify
+Enter the ID of the item to modify: e7e41e78-f3b9-4c69-a42d-ecfaa9ab2412
+Enter new title: İleri Düzey C#
+Enter number of authors: 2
+Enter author 1's first name: Ayşe
+Enter author 1's last name: Demir
+Enter author 2's first name: Veli
+Enter author 2's last name: Can
+Enter item type (Book/DVD): Book
+Enter new page count: 450
+Book modified successfully.
+```
 
-*   Mevcut kodda, `Library` sınıfı doğrudan `Book` ve `DVD` sınıflarına bağımlıdır.
-*   Bu bağımlılık, `LoadFromCsv` yönteminde `Book` ve `DVD` türlerinin doğrudan oluşturulmasıyla görülür.
-*   Bu durum, yeni bir tür (örneğin, `Magazine`) eklenmek istendiğinde `Library` sınıfının değiştirilmesi gerektiği anlamına gelir. Bu da Bağımlılığı Ters Çevirme İlkesi'ni ihlal eder.
+*   **Öğeyi silme (delete):**
+```
+> delete
+Enter the ID of the item to delete: e7e41e78-f3b9-4c69-a42d-ecfaa9ab2412
+Item deleted successfully.
+```
 
-**Çözüm:**
+*   **Ödünç verme (checkout):**
+```
+> checkout
+Enter the ID of the item to check out: e7e41e78-f3b9-4c69-a42d-ecfaa9ab2412
+Item checked out successfully.
+```
 
-Kod, bağımlılığı ters çevirmek için bir fabrika deseni (Factory Pattern) kullanılarak yeniden yapılandırılmıştır.
+*   **İade etme (return):**
+```
+> return
+Enter the ID of the item to return: e7e41e78-f3b9-4c69-a42d-ecfaa9ab2412
+Item returned successfully.
+```
 
-*   `ILibraryItemFactory` adında bir arayüz tanımlanmıştır. Bu arayüz, öğe türüne göre (`Book`, `DVD`) doğru nesneyi oluşturan bir metot sağlar.
-*   `Library` sınıfı artık `Book` ve `DVD` sınıflarına doğrudan bağımlı değildir. Bunun yerine, sadece `ILibraryItemFactory` arayüzüne bağımlıdır.
-*   Yeni bir öğe türü eklenmek istenirse, yalnızca bu fabrikanın uygulanması değiştirilir; `Library` sınıfında herhangi bir değişiklik gerekmez.
-
-**Sonuç:**
-
-Yapılan değişikliklerle, `Library` sınıfı artık düşük seviyeli modüllere değil, bir soyutlamaya bağımlıdır. Bu sayede kod, DIP'ye uygun hale gelmiştir ve daha genişletilebilir bir yapıya sahiptir.
+Bu örnekler, kütüphanenin temel işlevlerini nasıl kullanabileceğinizi göstermektedir. Daha fazla bilgi için kütüphanenin kodunu inceleyebilir veya Program.cs dosyasındaki yorumlara bakabilirsiniz.

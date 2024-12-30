@@ -20,7 +20,7 @@ namespace C_Sharp_Final_Odev_library
 
         public override string DisplayDetails()
         {
-            return $"[DVD] ID: {Id}\nTitle: {Title}\nAuthor: {Authors.ToCsv()}\nDuration: {_duration} minutes\nChecked Out: {IsCheckedOut}";
+            return $"[DVD] ID: {Id}\nTitle: {Title}\nAuthor: {Authors.ToString()}\nDuration: {_duration} minutes\nChecked Out: {IsCheckedOut}";
         }
 
         public override string ToCsv()

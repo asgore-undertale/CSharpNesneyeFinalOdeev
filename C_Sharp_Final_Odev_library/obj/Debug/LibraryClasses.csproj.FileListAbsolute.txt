@@ -95,6 +95,6 @@ C:\Users\ahmad\source\repos\LibraryCLIApplication\C_Sharp_Final_Odev_library\bin
 C:\Users\ahmad\source\repos\LibraryCLIApplication\C_Sharp_Final_Odev_library\bin\Debug\zh-Hant\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
 C:\Users\ahmad\source\repos\LibraryCLIApplication\C_Sharp_Final_Odev_library\obj\Debug\LibraryClasses.csproj.AssemblyReference.cache
 C:\Users\ahmad\source\repos\LibraryCLIApplication\C_Sharp_Final_Odev_library\obj\Debug\LibraryClasses.csproj.CoreCompileInputs.cache
-C:\Users\ahmad\source\repos\LibraryCLIApplication\C_Sharp_Final_Odev_library\obj\Debug\LibraryClasses.csproj.CopyComplete
 C:\Users\ahmad\source\repos\LibraryCLIApplication\C_Sharp_Final_Odev_library\obj\Debug\C_Sharp_Final_Odev_library.dll
 C:\Users\ahmad\source\repos\LibraryCLIApplication\C_Sharp_Final_Odev_library\obj\Debug\C_Sharp_Final_Odev_library.pdb
+C:\Users\ahmad\source\repos\LibraryCLIApplication\C_Sharp_Final_Odev_library\obj\Debug\LibraryC.C77C80A0.Up2Date

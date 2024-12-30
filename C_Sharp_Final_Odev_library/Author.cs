@@ -1,14 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace C_Sharp_Final_Odev_library
 {
     public class Author
     {
         public Guid Id { get; private set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+
+        private string _firstName; // Backing field for FirstName
+        public string FirstName
+        {
+            get => _firstName;
+            set
+            {
+                if (!Regex.IsMatch(value, @"^[a-zA-Z]+$"))
+                    throw new ArgumentException("Last name must only contain letters.");
+                _firstName = value; // Store the valid value
+            }
+        }
+
+        private string _lastName; // Backing field for LastName
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                if (!Regex.IsMatch(value, @"^[a-zA-Z]+$"))
+                    throw new ArgumentException("Last name must only contain letters.");
+                _lastName = value; // Store the valid value
+            }
+        }
 
         public Author(string firstName, string lastName)
         {
@@ -19,12 +43,12 @@ namespace C_Sharp_Final_Odev_library
 
         public override string ToString()
         {
-            return $"{FirstName} {LastName}";
+            return $"{_firstName} {_lastName}";
         }
 
         public string ToCsv()
         {
-            return $"{FirstName}_{LastName}";
+            return $"{_firstName}_{_lastName}";
         }
 
         public static Author FromCsv(string csvLine)
@@ -49,6 +73,11 @@ namespace C_Sharp_Final_Odev_library
         public Authors()
         {
             this.AuthorsList = AuthorsList;
+        }
+
+        public override string ToString()
+        {
+            return string.Join("-", AuthorsList.Select(a => a.ToString()));
         }
 
         public string ToCsv()

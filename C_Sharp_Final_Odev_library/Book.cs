@@ -19,7 +19,7 @@ namespace C_Sharp_Final_Odev_library
         }
 
         public override string DisplayDetails() {
-            return $"[Book] ID: {Id}\nTitle: {Title}\nAuthors: {Authors.ToCsv()}\nPages: {_pageCount}\nChecked Out: {IsCheckedOut}";
+            return $"[Book] ID: {Id}\nTitle: {Title}\nAuthors: {Authors.ToString()}\nPages: {_pageCount}\nChecked Out: {IsCheckedOut}";
         }
 
         public override string ToCsv()
