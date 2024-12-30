@@ -13,7 +13,7 @@ namespace C_Sharp_Final_Odev_library
 
     public class LibraryItemFactory : ILibraryItemFactory
     {
-        public LibraryItem CreateLibraryItem(string itemType, string title, Authors authors, string[] additionalData, bool isCheckedOut)
+        public LibraryItem CreateLibraryItem(string itemType, string title, Authors authors, string[] additionalData, bool isCheckedOut) // params azaltmak icin iyi bir fikir bulamadim, Dictionary kullanmak istedim ama uygun degildi
         {
             if (itemType == "Book")
             {
