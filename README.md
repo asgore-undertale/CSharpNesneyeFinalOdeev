@@ -20,7 +20,7 @@ Kütüphane, Nesne Yönelimli Programlama (OOP) prensiplerini ve Dependency Inve
 
 *   **Abstraction (Soyutlama):** `ILibraryItemFactory` arayüzü, öğe oluşturma mantığını somut `LibraryItemFactory` sınıfından ayırır. Bu, kodun daha esnek ve bakımı daha kolay olmasını sağlar. Farklı öğe türleri için fabrika sınıfı kullanılarak, yeni öğe türleri eklemek kolaylaşır.
 
-*   **Dependency Inversion Principle (DIP):** `Library` sınıfı, `ICsvHandler` ve `ILibraryItemFactory` arayüzlerine bağımlıdır, somut sınıflara değil. Bu, `Library` sınıfının farklı CSV işleyicileri veya fabrika uygulamaları ile çalışabilmesini sağlar. Bu prensip, test edilebilirliği artırır ve bağımlılıkları azaltır.
+*   **Dependency Inversion Principle (DIP):** `Library` sınıfı, `FileRepository` ve `ILibraryItemFactory` arayüzlerine bağımlıdır, somut sınıflara değil. Bu, `Library` sınıfının farklı CSV işleyicileri veya fabrika uygulamaları ile çalışabilmesini sağlar. Bu prensip, test edilebilirliği artırır ve bağımlılıkları azaltır.
 
 ### Komut Satırı Arayüzü (CLI) Kullanım Örnekleri
 
